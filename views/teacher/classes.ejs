@@ -1,0 +1,49 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/professor">Voltar</a>
+  </div>
+  <h2>Turmas</h2>
+  <div class="grid">
+    <div class="card">
+      <h3>Criar turma</h3>
+      <form method="post" action="/professor/turmas">
+        <label>
+          Código (ex.: 1RDC1)
+          <input name="code" required />
+        </label>
+        <label>
+          Nome (opcional)
+          <input name="name" />
+        </label>
+        <button type="submit">Criar</button>
+      </form>
+    </div>
+    <div class="card">
+      <h3>Lista</h3>
+      <% if (!classes.length) { %>
+        <p class="muted">Nenhuma turma cadastrada.</p>
+      <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Código</th>
+              <th>Nome</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (const c of classes) { %>
+              <tr>
+                <td class="nowrap"><span class="tag"><%= c.code %></span></td>
+                <td><%= c.name %></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

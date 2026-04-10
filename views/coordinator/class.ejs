@@ -1,0 +1,80 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/coordenacao">Voltar</a>
+  </div>
+  <h2>Turma <%= turma.code %></h2>
+  <p class="muted">
+    Alunos com mais de 3 advertências pendentes aparecem em vermelho. Clique no aluno para ver advertências e observações e
+    marcar como resolvido.
+  </p>
+
+  <% if (!students.length) { %>
+    <p class="muted">Nenhum aluno cadastrado nesta turma.</p>
+  <% } else if (!activities.length) { %>
+    <p class="muted">Ainda não há atividades lançadas para esta turma.</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Aluno</th>
+          <th class="nowrap">Advertências pendentes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (const s of students) { %>
+          <tr>
+            <td>
+              <a href="/coordenacao/aluno/<%= s.id %>"><%= s.fullName %></a>
+            </td>
+            <td class="nowrap">
+              <span class="tag <%= s.pendingWarnings > 3 ? "danger" : "" %>"><%= s.pendingWarnings %></span>
+            </td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } else { %>
+    <div style="overflow-x: auto">
+      <table>
+        <thead>
+          <tr>
+            <th>Aluno</th>
+            <th class="nowrap">Advertências</th>
+            <% for (const a of activities) { %>
+              <th class="nowrap"><%= a.date %></th>
+            <% } %>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <% for (const a of activities) { %>
+              <th class="muted"><%= a.title %></th>
+            <% } %>
+          </tr>
+        </thead>
+        <tbody>
+          <% for (const s of students) { %>
+            <tr>
+              <td>
+                <a class="<%= s.pendingWarnings > 3 ? "danger" : "" %>" href="/coordenacao/aluno/<%= s.id %>">
+                  <%= s.fullName %>
+                </a>
+              </td>
+              <td class="nowrap">
+                <span class="tag <%= s.pendingWarnings > 3 ? "danger" : "" %>"><%= s.pendingWarnings %></span>
+              </td>
+              <% for (const a of activities) { %>
+                <% const key = `${a.id}:${s.id}`; %>
+                <% const done = completionByKey.has(key) ? completionByKey.get(key) : null; %>
+                <td class="nowrap"><%= done === null ? "-" : done %></td>
+              <% } %>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

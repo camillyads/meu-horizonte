@@ -1,0 +1,32 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/aluno">Voltar</a>
+  </div>
+  <h2>Documentos (PDF)</h2>
+  <% if (!docs.length) { %>
+    <p class="muted">Nenhum documento publicado ainda.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th>Título</th>
+          <th class="nowrap">Data</th>
+          <th class="nowrap">Download</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (const d of docs) { %>
+          <tr>
+            <td><%= d.title %></td>
+            <td class="nowrap"><%= String(d.uploadedAt).slice(0, 10) %></td>
+            <td class="nowrap"><a href="/uploads/<%= d.fileName %>" download>Baixar PDF</a></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

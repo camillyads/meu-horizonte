@@ -1,0 +1,35 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/aluno">Voltar</a>
+  </div>
+  <h2>Informações</h2>
+
+  <% if (!infos.length) { %>
+    <p class="muted">Nenhuma informação publicada ainda.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th class="nowrap">Data</th>
+          <th class="nowrap">Tipo</th>
+          <th>Título</th>
+          <th>Detalhes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (const i of infos) { %>
+          <tr>
+            <td class="nowrap"><%= i.date %></td>
+            <td class="nowrap"><span class="tag"><%= i.type %></span></td>
+            <td><%= i.title %></td>
+            <td class="muted"><%= i.body || "-" %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

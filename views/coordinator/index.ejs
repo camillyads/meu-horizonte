@@ -1,0 +1,17 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <h2>Painel da Coordenação</h2>
+  <p class="muted">Selecione uma turma para ver a planilha de atividades (0/1) e o destaque de advertências.</p>
+
+  <div class="grid">
+    <% for (const c of classes) { %>
+      <div class="card">
+        <h3><%= c.code %></h3>
+        <a href="/coordenacao/turma/<%= c.id %>">Abrir planilha</a>
+      </div>
+    <% } %>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

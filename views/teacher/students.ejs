@@ -1,0 +1,71 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/professor">Voltar</a>
+  </div>
+  <h2>Alunos</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Cadastrar aluno</h3>
+      <% if (error) { %>
+        <p class="error"><%= error %></p>
+      <% } %>
+      <% if (createdCredentials) { %>
+        <p class="success">
+          Credenciais criadas para <%= createdCredentials.fullName %>:
+          <br />
+          Login: <span class="tag"><%= createdCredentials.login %></span>
+          <br />
+          Senha: <span class="tag"><%= createdCredentials.password %></span>
+        </p>
+      <% } %>
+      <p class="muted">Padrão do login: TURMA + PRIMEIRO NOME (ex.: 1RDC1LUIZ). Senha: 2016 + duas letras.</p>
+      <form method="post" action="/professor/alunos">
+        <label>
+          Nome completo
+          <input name="fullName" required />
+        </label>
+        <label>
+          Turma
+          <select name="classId" required>
+            <option value="">Selecione...</option>
+            <% for (const c of classes) { %>
+              <option value="<%= c.id %>"><%= c.code %></option>
+            <% } %>
+          </select>
+        </label>
+        <button type="submit">Cadastrar</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Lista</h3>
+      <% if (!students.length) { %>
+        <p class="muted">Nenhum aluno cadastrado.</p>
+      <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th class="nowrap">Turma</th>
+              <th class="nowrap">Login</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (const s of students) { %>
+              <tr>
+                <td><%= s.fullName %></td>
+                <td class="nowrap"><%= s.turma ? s.turma.code : "-" %></td>
+                <td class="nowrap"><span class="tag"><%= s.login %></span></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,71 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/professor">Voltar</a>
+  </div>
+  <h2>Atividades</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Lançar atividade</h3>
+      <form method="post" action="/professor/atividades">
+        <label>
+          Turma
+          <select name="classId" required>
+            <option value="">Selecione...</option>
+            <% for (const c of classes) { %>
+              <option value="<%= c.id %>"><%= c.code %></option>
+            <% } %>
+          </select>
+        </label>
+        <label>
+          Dia (AAAA-MM-DD)
+          <input name="date" placeholder="2026-04-10" required />
+        </label>
+        <label>
+          Tipo / Nome da atividade
+          <input name="title" required />
+        </label>
+        <label>
+          Especificação (opcional)
+          <textarea name="description"></textarea>
+        </label>
+        <button type="submit">Adicionar</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Atividades cadastradas</h3>
+      <% if (!activities.length) { %>
+        <p class="muted">Nenhuma atividade lançada.</p>
+      <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th class="nowrap">Turma</th>
+              <th class="nowrap">Data</th>
+              <th>Atividade</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (const a of activities) { %>
+              <tr>
+                <td class="nowrap"><%= a.turma ? a.turma.code : "-" %></td>
+                <td class="nowrap"><%= a.date %></td>
+                <td>
+                  <div><%= a.title %></div>
+                  <% if (a.description) { %>
+                    <div class="muted"><%= a.description %></div>
+                  <% } %>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

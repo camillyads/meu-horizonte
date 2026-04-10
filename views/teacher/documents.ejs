@@ -1,0 +1,81 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/professor">Voltar</a>
+  </div>
+  <h2>Documentos (PDF)</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Publicar PDF</h3>
+      <form method="post" action="/professor/documentos" enctype="multipart/form-data">
+        <label>
+          Título
+          <input name="title" required />
+        </label>
+        <label>
+          Visibilidade
+          <select name="visibility">
+            <option value="all">Todos os alunos</option>
+            <option value="class">Somente uma turma</option>
+          </select>
+        </label>
+        <label>
+          Turma (quando "Somente uma turma")
+          <select name="classId">
+            <option value="">Selecione...</option>
+            <% for (const c of classes) { %>
+              <option value="<%= c.id %>"><%= c.code %></option>
+            <% } %>
+          </select>
+        </label>
+        <label>
+          Arquivo PDF
+          <input type="file" name="pdf" accept="application/pdf" required />
+        </label>
+        <button type="submit">Publicar</button>
+      </form>
+      <p class="muted">Limite: 25MB por arquivo.</p>
+    </div>
+
+    <div class="card">
+      <h3>Publicados</h3>
+      <% if (!documents.length) { %>
+        <p class="muted">Nenhum PDF publicado.</p>
+      <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th>Título</th>
+              <th class="nowrap">Data</th>
+              <th class="nowrap">Download</th>
+              <th class="nowrap">Ação</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (const d of documents) { %>
+              <tr>
+                <td>
+                  <div><%= d.title %></div>
+                  <div class="muted">
+                    <%= d.visibility === "class" ? "Turma específica" : "Todos" %>
+                  </div>
+                </td>
+                <td class="nowrap"><%= String(d.uploadedAt).slice(0, 10) %></td>
+                <td class="nowrap"><a href="/uploads/<%= d.fileName %>" download>Baixar</a></td>
+                <td class="nowrap">
+                  <form method="post" action="/professor/documentos/<%= d.id %>/remover">
+                    <button type="submit">Remover</button>
+                  </form>
+                </td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

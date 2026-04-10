@@ -1,0 +1,55 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/professor">Voltar</a>
+  </div>
+  <h2>Advertências e Observações</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Registrar</h3>
+      <form method="post" action="/professor/advertencias">
+        <label>
+          Aluno
+          <select name="studentId" required>
+            <option value="">Selecione...</option>
+            <% for (const s of students) { %>
+              <option value="<%= s.id %>"><%= s.turma ? s.turma.code : "-" %> - <%= s.fullName %></option>
+            <% } %>
+          </select>
+        </label>
+        <label>
+          Data (AAAA-MM-DD)
+          <input name="date" placeholder="2026-04-10" />
+        </label>
+        <label>
+          Tipo de advertência
+          <select name="type" required>
+            <option value="">Selecione...</option>
+            <option value="Uso de celular">Uso de celular</option>
+            <option value="Dormir em sala">Dormir em sala</option>
+            <option value="Bullying">Bullying</option>
+            <option value="Comportamento inadequado">Comportamento inadequado</option>
+            <option value="Não cumprimento de atividades">Não cumprimento de atividades</option>
+          </select>
+        </label>
+        <label>
+          Observação (opcional)
+          <textarea name="observation"></textarea>
+        </label>
+        <button type="submit">Salvar</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Referência</h3>
+      <p class="muted">
+        A coordenação visualiza por turma e pode marcar como resolvidas as advertências pendentes. O histórico continua
+        disponível, separado em "aguardando análise" e "resolvidas".
+      </p>
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

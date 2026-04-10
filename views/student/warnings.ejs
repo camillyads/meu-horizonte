@@ -1,0 +1,34 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/aluno">Voltar</a>
+  </div>
+  <h2>Minhas advertências</h2>
+
+  <h3>Aguardando análise</h3>
+  <% if (!pending.length) { %>
+    <p class="muted">Nenhuma advertência pendente.</p>
+  <% } else { %>
+    <ul>
+      <% for (const w of pending) { %>
+        <li><span class="tag"><%= w.date %></span> <%= w.type %></li>
+      <% } %>
+    </ul>
+  <% } %>
+
+  <div style="height: 12px"></div>
+
+  <h3>Resolvidas</h3>
+  <% if (!resolved.length) { %>
+    <p class="muted">Nenhuma advertência resolvida.</p>
+  <% } else { %>
+    <ul>
+      <% for (const w of resolved) { %>
+        <li><span class="tag"><%= w.date %></span> <%= w.type %></li>
+      <% } %>
+    </ul>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

@@ -1,0 +1,83 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/professor">Voltar</a>
+  </div>
+  <h2>Informações</h2>
+
+  <div class="grid">
+    <div class="card">
+      <h3>Publicar</h3>
+      <form method="post" action="/professor/informacoes">
+        <label>
+          Tipo
+          <select name="type">
+            <option value="prova">Prova</option>
+            <option value="lembrete">Lembrete</option>
+            <option value="evento">Evento</option>
+          </select>
+        </label>
+        <label>
+          Data (AAAA-MM-DD)
+          <input name="date" placeholder="2026-04-10" required />
+        </label>
+        <label>
+          Título
+          <input name="title" required />
+        </label>
+        <label>
+          Detalhes (opcional)
+          <textarea name="body"></textarea>
+        </label>
+        <label>
+          Escopo
+          <select name="scope">
+            <option value="all">Todos</option>
+            <option value="class">Somente uma turma</option>
+          </select>
+        </label>
+        <label>
+          Turma (quando "Somente uma turma")
+          <select name="classId">
+            <option value="">Selecione...</option>
+            <% for (const c of classes) { %>
+              <option value="<%= c.id %>"><%= c.code %></option>
+            <% } %>
+          </select>
+        </label>
+        <button type="submit">Publicar</button>
+      </form>
+    </div>
+
+    <div class="card">
+      <h3>Lista</h3>
+      <% if (!infos.length) { %>
+        <p class="muted">Nenhuma informação publicada.</p>
+      <% } else { %>
+        <table>
+          <thead>
+            <tr>
+              <th class="nowrap">Data</th>
+              <th class="nowrap">Tipo</th>
+              <th>Título</th>
+              <th>Detalhes</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for (const i of infos) { %>
+              <tr>
+                <td class="nowrap"><%= i.date %></td>
+                <td class="nowrap"><span class="tag"><%= i.type %></span></td>
+                <td><%= i.title %></td>
+                <td class="muted"><%= i.body || "-" %></td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>

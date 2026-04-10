@@ -1,0 +1,28 @@
+<%- include("partials/header") %>
+
+<div class="card" style="max-width: 520px">
+  <h2>Entrar</h2>
+  <% if (error) { %>
+    <p class="error"><%= error %></p>
+  <% } %>
+  <form method="post" action="/login">
+    <label>
+      Login
+      <input name="login" autocomplete="username" required />
+    </label>
+    <label>
+      Senha
+      <input type="password" name="password" autocomplete="current-password" required />
+    </label>
+    <button type="submit">Entrar</button>
+  </form>
+
+  <div style="height: 10px"></div>
+  <p class="muted">
+    Professor: login 16696444726, senha 654321.
+    <br />
+    Coordenação: login coordormanda, senha 112233.
+  </p>
+</div>
+
+<%- include("partials/footer") %>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="pt-br">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title><%= pageTitle %> - Meu horizonte</title>
+    <link rel="stylesheet" href="/public/style.css" />
+  </head>
+  <body>
+    <header>
+      <div class="top">
+        <div class="brand">
+          <h1><a href="/">Meu horizonte</a></h1>
+          <span class="muted"><%= pageTitle %></span>
+        </div>
+        <div class="actions">
+          <% if (currentUser) { %>
+            <% if (currentUser.role === "student") { %>
+              <a class="tag" href="/aluno">Aluno</a>
+            <% } %>
+            <% if (currentUser.role === "teacher") { %>
+              <a class="tag" href="/professor">Professor</a>
+            <% } %>
+            <% if (currentUser.role === "coordinator") { %>
+              <a class="tag" href="/coordenacao">Coordenação</a>
+            <% } %>
+            <form method="post" action="/logout">
+              <button type="submit">Sair</button>
+            </form>
+          <% } else { %>
+            <a class="tag" href="/login">Entrar</a>
+          <% } %>
+        </div>
+      </div>
+    </header>
+    <main>

@@ -1,0 +1,38 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <div class="actions">
+    <a class="tag" href="/aluno">Voltar</a>
+  </div>
+  <h2>Meu desempenho em matemática</h2>
+
+  <% if (!rows.length) { %>
+    <p class="muted">Ainda não há atividades lançadas para sua turma.</p>
+  <% } else { %>
+    <table>
+      <thead>
+        <tr>
+          <th class="nowrap">Data</th>
+          <th>Atividade</th>
+          <th class="nowrap">0/1</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% for (const row of rows) { %>
+          <tr>
+            <td class="nowrap"><%= row.activity.date %></td>
+            <td>
+              <div><%= row.activity.title %></div>
+              <% if (row.activity.description) { %>
+                <div class="muted"><%= row.activity.description %></div>
+              <% } %>
+            </td>
+            <td class="nowrap"><%= row.done === null ? "-" : row.done %></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  <% } %>
+</div>
+
+<%- include("../partials/footer") %>

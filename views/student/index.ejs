@@ -1,0 +1,30 @@
+<%- include("../partials/header") %>
+
+<div class="card">
+  <h2>Olá, <%= user.fullName %></h2>
+  <p class="muted">Turma: <%= turma ? turma.code : "-" %> | Login: <span class="tag"><%= user.login %></span></p>
+  <div class="grid">
+    <div class="card">
+      <h3>1) Meu desempenho em matemática</h3>
+      <p class="muted">Planilha com data, atividade e marcação 0/1.</p>
+      <a href="/aluno/desempenho">Abrir</a>
+    </div>
+    <div class="card">
+      <h3>2) Minhas advertências</h3>
+      <p class="muted">Lista com data e tipo (uso de celular, comportamento inadequado etc.).</p>
+      <a href="/aluno/advertencias">Abrir</a>
+    </div>
+    <div class="card">
+      <h3>3) Documentos</h3>
+      <p class="muted">PDFs anexados pelo professor.</p>
+      <a href="/aluno/documentos">Abrir</a>
+    </div>
+    <div class="card">
+      <h3>4) Informações</h3>
+      <p class="muted">Datas de prova, lembretes de atividades e eventos.</p>
+      <a href="/aluno/informacoes">Abrir</a>
+    </div>
+  </div>
+</div>
+
+<%- include("../partials/footer") %>
